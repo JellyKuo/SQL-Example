@@ -17,20 +17,27 @@ namespace SQL_Example
             InitializeComponent();
         }
 
-        SQL sql;  //宣告全域變數SQL
-
         private void loginButton_Click(object sender, EventArgs e)
         {
             try
             {
-                sql = new SQL(User: userBox.Text, Pass: passBox.Text); //初始化SQL物件
-                sql.Connect();
-                
+                Console.WriteLine("Logging in");
+                SQL.Connect(userBox.Text,passBox.Text);
+                if (SQL.GetConnectionState() == "Open")
+                    LoggedIn();  //登入成功
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void LoggedIn()
+        {
+            Console.WriteLine("Logged In!");
+            MainForm mf = new MainForm();  //顯示主介面表單
+            mf.Show();
+            this.Hide();
         }
     }
 }

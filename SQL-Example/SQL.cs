@@ -4,18 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Data.SqlClient; //很重要，所有SQL打頭的都在這
-
+//很重要，所有SQL打頭的都在這
+using System.Data.SqlClient;
+//除了這個Class，其他都不用using這個
 
 namespace SQL_Example
 {
     class SQL
     {
-        private string ConnStr;  //儲存連線參數
-        private SqlConnection conn;  //不允許應用程式直接接觸連線
+        /// <summary>
+        /// 這裡控制與SQL伺服器的連線與操作
+        /// </summary>
 
-        public SQL(string User, string Pass, bool ConnectNow = false)  //初始化
+        protected static SqlConnection conn;  //基於安全原因，禁止除了此Class的方法存取SqlConnection
+
+        public SQL()  //初始化
         {
+            if (conn == null)
+                throw new Exception("SqlConnection未就緒!");
+        }
+
+        public static void Connect(string User, string Pass)  //開始連線
+        {
+            string ConnStr;  //儲存連線參數
             string Server = "tcp:jelly.database.windows.net,1433";  //Server位置
             string Catalog = "TestDB";  //DB Schema
 
@@ -29,18 +40,28 @@ namespace SQL_Example
                 "TrustServerCertificate=False;" +
                 "Connection Timeout=30;"  //連線逾時
                 , Server, Catalog, User, Pass);  //製作連線參數
-            if (ConnectNow)
-                Connect();
-        }
 
-        public void Connect()  //開始連線
-        {
             conn = new SqlConnection();
             conn.ConnectionString = ConnStr;
-            conn.Open();  //Async開啟連線
-
+            conn.Open();  //開啟連線
             ConnStr = null;  //從記憶體釋放連線參數
-            Console.WriteLine(conn.State.ToString());
+            Console.WriteLine("conn State: "+conn.State.ToString());
+        }
+
+        public static string GetConnectionState()  //取得連線狀態
+        {
+            if (conn != null)
+                return conn.State.ToString();
+            else
+                return null;
+        }
+
+        public static void Logout()  //登出
+        {
+            Console.WriteLine("Logging out");
+            conn.Close();  //關閉連線
+            conn.Dispose();  //釋放資源
+            conn = null;  //重設提供下次登入
         }
 
         public Task<int> ExecuteNonQuery(string cmdStr)  //執行不回傳的SQL Query
