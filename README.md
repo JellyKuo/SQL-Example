@@ -1,24 +1,29 @@
 # SQL-Example
-´£¨Ñ°ò¥»SQL³s½u©M¾Ş§@ªºµ{¦¡½X
+æä¾›åŸºæœ¬SQLé€£ç·šå’Œæ“ä½œçš„ç¨‹å¼ç¢¼
 
-##°ò¥»¤¶²Ğ
+## åŸºæœ¬ä»‹ç´¹
 
- - 'SQL.cs'
-     - SQL³s½u»P¦s¨ú
- - 'LoginForm.cs'
-     - µn¤J¤¶­±¡A¤]¬Oµ{¦¡¶i¤Jªº²Ä¤@­ÓForm
- - 'MainForm.cs'
-     - ¥D¤¶­±¡A¹ê§@µn¥X«ö¶s
- - 'Crypto.cs'
-     - ¥[±K¡B¸Ñ±K¦r¦ê¥Î (½d¨Ò©|¥¼¥Î¨ì)
+ - `SQL.cs`
+     - SQLé€£ç·šèˆ‡å­˜å–
+ - `LoginForm.cs`
+     - ç™»å…¥ä»‹é¢ï¼Œä¹Ÿæ˜¯ç¨‹å¼é€²å…¥çš„ç¬¬ä¸€å€‹Form
+ - `MainForm.cs`
+     - ä¸»ä»‹é¢ï¼Œå¯¦ä½œç™»å‡ºæŒ‰éˆ•
+ - `Crypto.cs`
+     - åŠ å¯†ã€è§£å¯†å­—ä¸²ç”¨ (ç¯„ä¾‹å°šæœªç”¨åˆ°)
 
-#SQL.cs
+## Class
+###### SQL.cs
 
-1. 'Connect(string User, string Pass)'
-     - ªì©l¤Æ³s½u¡A±a¤J¨Ï¥ÎªÌ¦WºÙ©M±K½X
-2. 'GetConnectipnState'
-     - ¶Ç¦^³s½uª¬ºA(string)
-3. 'Logout'
-     - µn¥X¨ÃÄÀ©ñ³s½u¥H¨Ñ¦A¦¸µn¤J
-
-###¸Ô²Ó¤º®e§Ú¦A§V¤O¸É¤W
+1. `Connect(string User, string Pass)`
+     - åˆå§‹åŒ–é€£ç·šï¼Œå¸¶å…¥ä½¿ç”¨è€…åç¨±å’Œå¯†ç¢¼
+2. `GetConnectipnState`
+     - å‚³å›é€£ç·šç‹€æ…‹(string)
+3. `Logout`
+     - ç™»å‡ºä¸¦é‡‹æ”¾é€£ç·šä»¥ä¾›å†æ¬¡ç™»å…¥
+4. `ExecuteNonQuery(string cmdStr)` ** Async **
+ Â  Â  - Asyncï¼Œå‚³å› `Task<int>`
+ Â  Â  - åŸ·è¡Œä¸å›å‚³çš„SQL Queryï¼Œå‚³å›intä»£è¡¨å—å½±éŸ¿çš„è³‡æ–™è¡Œæ•¸
+5. `ExecuteReadQuery(string cmdStr)` ** Async **
+ Â  Â  - Asyncï¼Œå‚³å› `Task<SqlDataReader>`
+ Â  Â  - åŸ·è¡Œå‚³å›çš„SQL Queryï¼Œå‚³å›SqlDataReader (WIP)
