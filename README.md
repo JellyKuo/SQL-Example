@@ -17,13 +17,13 @@
 
 1. `Connect(string User, string Pass)`
      - 初始化連線，帶入使用者名稱和密碼
-2. `GetConnectipnState`
+2. `GetConnectionState`
      - 傳回連線狀態(string)
 3. `Logout`
      - 登出並釋放連線以供再次登入
-4. `ExecuteNonQuery(string cmdStr)` ** Async **
-     - Async，傳回 `Task<int>`
-     - 執行不回傳的SQL Query，傳回int代表受影響的資料行數
-5. `ExecuteReadQuery(string cmdStr)` ** Async **
-     - Async，傳回 `Task<SqlDataReader>`
-     - 執行傳回的SQL Query，傳回SqlDataReader (WIP)
+4. `ExecuteNonQuery(string cmdStr)`  **_Async_**
+     - Async，傳回 `Task<int>`
+     - 執行不回傳的SQL Query，傳回int代表受影響的資料行數
+5. `ExecuteReadQuery(string cmdStr)`  **_Async_**
+     - Async，傳回 `Task<SqlDataReader>`
+     - 執行傳回的SQL Query，傳回SqlDataReader (WIP)
