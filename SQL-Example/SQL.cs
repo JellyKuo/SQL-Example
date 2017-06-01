@@ -14,9 +14,9 @@ namespace SQL_Example
         private string ConnStr;  //儲存連線參數
         private SqlConnection conn;  //不允許應用程式直接接觸連線
 
-        public SQL(string User,string Pass,bool ConnectNow)  //初始化
+        public SQL(string User, string Pass, bool ConnectNow = false)  //初始化
         {
-            string Server = "tcp:jellykuo.database.windows.net,1433";  //Server位置
+            string Server = "tcp:jelly.database.windows.net,1433";  //Server位置
             string Catalog = "TestDB";  //DB Schema
 
             ConnStr = String.Format("Server={0};" +
@@ -28,25 +28,19 @@ namespace SQL_Example
                 "Encrypt=True;" +
                 "TrustServerCertificate=False;" +
                 "Connection Timeout=30;"  //連線逾時
-                , Server, Catalog,User,Pass);  //製作連線參數
+                , Server, Catalog, User, Pass);  //製作連線參數
             if (ConnectNow)
                 Connect();
         }
 
-        public async void Connect()  //開始連線
+        public void Connect()  //開始連線
         {
-            try
-            {
-                conn = new SqlConnection();
-                conn.ConnectionString = ConnStr;
-                await conn.OpenAsync();  //Async開啟連線
-                
-                ConnStr = null;  //從記憶體釋放連線參數
-            }
-            catch(Exception e)
-            {
-                throw e;
-            }
+            conn = new SqlConnection();
+            conn.ConnectionString = ConnStr;
+            conn.Open();  //Async開啟連線
+
+            ConnStr = null;  //從記憶體釋放連線參數
+            Console.WriteLine(conn.State.ToString());
         }
 
         public Task<int> ExecuteNonQuery(string cmdStr)  //執行不回傳的SQL Query

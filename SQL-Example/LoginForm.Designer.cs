@@ -31,20 +31,21 @@
             this.passBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.userPass = new System.Windows.Forms.TextBox();
+            this.userBox = new System.Windows.Forms.TextBox();
+            this.loginButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // passBox
             // 
-            this.passBox.Location = new System.Drawing.Point(47, 70);
+            this.passBox.Location = new System.Drawing.Point(47, 48);
             this.passBox.Name = "passBox";
-            this.passBox.Size = new System.Drawing.Size(164, 22);
+            this.passBox.Size = new System.Drawing.Size(225, 22);
             this.passBox.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 37);
+            this.label1.Location = new System.Drawing.Point(12, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 1;
@@ -53,25 +54,36 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 73);
+            this.label2.Location = new System.Drawing.Point(12, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "密碼";
             // 
-            // userPass
+            // userBox
             // 
-            this.userPass.Location = new System.Drawing.Point(47, 34);
-            this.userPass.Name = "userPass";
-            this.userPass.Size = new System.Drawing.Size(164, 22);
-            this.userPass.TabIndex = 3;
+            this.userBox.Location = new System.Drawing.Point(47, 20);
+            this.userBox.Name = "userBox";
+            this.userBox.Size = new System.Drawing.Size(225, 22);
+            this.userBox.TabIndex = 3;
+            // 
+            // loginButton
+            // 
+            this.loginButton.Location = new System.Drawing.Point(14, 76);
+            this.loginButton.Name = "loginButton";
+            this.loginButton.Size = new System.Drawing.Size(258, 23);
+            this.loginButton.TabIndex = 4;
+            this.loginButton.Text = "登入";
+            this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.userPass);
+            this.ClientSize = new System.Drawing.Size(284, 111);
+            this.Controls.Add(this.loginButton);
+            this.Controls.Add(this.userBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.passBox);
@@ -87,7 +99,8 @@
         private System.Windows.Forms.TextBox passBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox userPass;
+        private System.Windows.Forms.TextBox userBox;
+        private System.Windows.Forms.Button loginButton;
     }
 }
 

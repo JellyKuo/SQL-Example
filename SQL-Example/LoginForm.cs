@@ -16,5 +16,21 @@ namespace SQL_Example
         {
             InitializeComponent();
         }
+
+        SQL sql;  //宣告全域變數SQL
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                sql = new SQL(User: userBox.Text, Pass: passBox.Text); //初始化SQL物件
+                sql.Connect();
+                
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
