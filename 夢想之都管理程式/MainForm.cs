@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace 夢想之都管理程式
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
+        }
+
+        SQL sql = new SQL();
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            sql.ExecuteNonQuery("SELECT * FROM 使用者資料");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace 夢想之都管理程式
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(FormProvider.LoginForm);  //由FormProvider提供LoginForm
         }
     }
 }
