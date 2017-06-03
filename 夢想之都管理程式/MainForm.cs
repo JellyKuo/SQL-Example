@@ -21,7 +21,13 @@ namespace 夢想之都管理程式
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            sql.ExecuteNonQuery("SELECT * FROM 使用者資料");
+            GetUserData();
+
         }
+
+        private async void GetUserData()
+        {
+            nameLabel.Text = await sql.GetUserName();
+        } 
     }
 }

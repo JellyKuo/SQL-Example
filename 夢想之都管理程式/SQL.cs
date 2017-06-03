@@ -17,11 +17,17 @@ namespace 夢想之都管理程式
         /// </summary>
 
         protected static SqlConnection conn;  //基於安全原因，禁止除了此Class的方法存取SqlConnection
+        public int UserID { get; set; }
 
         public SQL()  //初始化
         {
             if (conn == null)
                 throw new Exception("SqlConnection未就緒!");
+            var cmd = new SqlCommand("SELECT CURRENT_USER", conn);
+            var UserReader = cmd.ExecuteReader();
+            cmd.CommandText = "SELECT 使用者ID FROM 使用者資料 WHERE 帳號 = " + UserReader.GetString(1);
+            var IDReader = cmd.ExecuteReader();
+            this.UserID = IDReader.GetInt32(0);
         }
 
         public static void Connect(string User, string Pass)  //開始連線
@@ -57,9 +63,14 @@ namespace 夢想之都管理程式
 
         public static void Logout()  //登出
         {
-            Console.WriteLine("Logging out");
-            conn.Close();  //關閉連線
-            conn.Dispose();  //釋放資源
+            if (conn != null)
+            {
+                Console.WriteLine("Logging out");
+                conn.Close();  //關閉連線
+                conn.Dispose();  //釋放資源
+            }
+            else
+                Console.WriteLine("User is not logged in");
         }
 
         public Task<int> ExecuteNonQuery(string cmdStr)  //執行不回傳的SQL Query
@@ -80,7 +91,16 @@ namespace 夢想之都管理程式
             cmd.Connection = conn;
             cmd.CommandText = cmdStr;
             SqlDataReader reader = await cmd.ExecuteReaderAsync();
+            await reader.ReadAsync();
             return reader;
         }  //執行傳回的SQL Query
+
+        public async Task<string> GetUserName()
+        {
+            SqlCommand cmd = new SqlCommand("SELECT 名稱 FROM 使用者資料 WHERE 使用者ID = " + UserID.ToString(), conn);
+            var reader = await cmd.ExecuteReaderAsync();
+            await reader.ReadAsync();
+            return reader.GetString(0);
+        }
     }
 }

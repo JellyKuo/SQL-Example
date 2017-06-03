@@ -33,5 +33,18 @@ namespace SQL_Example
                 MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Exit();
+        }
+
+        private void Exit()
+        {
+            SQL.Logout();  //登出
+            if (SQL.GetConnectionState() != null)
+                throw new Exception("SQL isn't nulled properly!");  //SQL連線沒有被Null
+            Application.ExitThread();
+        }
     }
 }

@@ -27,8 +27,8 @@ namespace SQL_Example
         public static void Connect(string User, string Pass)  //開始連線
         {
             string ConnStr;  //儲存連線參數
-            string Server = "tcp:jelly.database.windows.net,1433";  //Server位置
-            string Catalog = "TestDB";  //DB Schema
+            string Server = "tcp:dreamcity.database.windows.net,1433";  //Server位置
+            string Catalog = "夢想之都";  //DB Schema
 
             ConnStr = String.Format("Server={0};" +
                 "Initial Catalog={1};" +  //初始Schema

@@ -19,7 +19,7 @@ namespace 夢想之都管理程式
                 if (_LoginForm == null)
                 {
                     _LoginForm = new LoginForm();
-                    _LoginForm.FormClosing += ExitApp;
+                    _LoginForm.FormClosing += FormProvider.ExitApp;
                 }
                 return _LoginForm;
             }
@@ -34,7 +34,7 @@ namespace 夢想之都管理程式
                 if (_MainForm == null)
                 {
                     _MainForm = new MainForm();
-                    _LoginForm.FormClosing += ExitApp;
+                    _MainForm.FormClosing += FormProvider.ExitApp;
                 }
                 return _MainForm;
             }
@@ -43,7 +43,7 @@ namespace 夢想之都管理程式
 
         private static void ExitApp(object sender, System.Windows.Forms.FormClosingEventArgs e)  //關閉應用程式
         {
-            Console.WriteLine(((Form)sender).Name+"呼叫關閉! 登出SQL");
+            Console.WriteLine(((Form)sender).Name+"呼叫關閉! 嘗試登出SQL");
             SQL.Logout();
             Application.Exit();
         }
