@@ -41,7 +41,7 @@ namespace 夢想之都管理程式
         }
         private static MainForm _MainForm;
 
-        private static void ExitApp(object sender, System.Windows.Forms.FormClosingEventArgs e)  //關閉應用程式
+        public static void ExitApp(object sender, System.Windows.Forms.FormClosingEventArgs e)  //關閉應用程式
         {
             Console.WriteLine(((Form)sender).Name+"呼叫關閉! 嘗試登出SQL");
             SQL.Logout();

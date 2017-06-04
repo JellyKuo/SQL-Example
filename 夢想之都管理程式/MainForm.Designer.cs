@@ -146,6 +146,7 @@
             this.結束ToolStripMenuItem.Name = "結束ToolStripMenuItem";
             this.結束ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.結束ToolStripMenuItem.Text = "結束";
+            this.結束ToolStripMenuItem.Click += new System.EventHandler(this.結束ToolStripMenuItem_Click);
             // 
             // MainForm
             // 
