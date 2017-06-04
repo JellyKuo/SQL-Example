@@ -35,7 +35,12 @@
             this.messageBox = new System.Windows.Forms.GroupBox();
             this.departmentLabel = new System.Windows.Forms.Label();
             this.permissionLabel = new System.Windows.Forms.Label();
+            this.檔案ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.登出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.重新整理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.結束ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userBox.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // userBox
@@ -55,7 +60,7 @@
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Location = new System.Drawing.Point(10, 22);
+            this.nameLabel.Location = new System.Drawing.Point(10, 27);
             this.nameLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(92, 20);
@@ -64,10 +69,12 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.檔案ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(10, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(590, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(590, 25);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -104,12 +111,41 @@
             // permissionLabel
             // 
             this.permissionLabel.AutoSize = true;
-            this.permissionLabel.Location = new System.Drawing.Point(10, 100);
+            this.permissionLabel.Location = new System.Drawing.Point(10, 94);
             this.permissionLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.permissionLabel.Name = "permissionLabel";
             this.permissionLabel.Size = new System.Drawing.Size(131, 20);
             this.permissionLabel.TabIndex = 3;
             this.permissionLabel.Text = "permissionLabel";
+            // 
+            // 檔案ToolStripMenuItem
+            // 
+            this.檔案ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.登出ToolStripMenuItem,
+            this.重新整理ToolStripMenuItem,
+            this.結束ToolStripMenuItem});
+            this.檔案ToolStripMenuItem.Name = "檔案ToolStripMenuItem";
+            this.檔案ToolStripMenuItem.Size = new System.Drawing.Size(43, 19);
+            this.檔案ToolStripMenuItem.Text = "檔案";
+            // 
+            // 登出ToolStripMenuItem
+            // 
+            this.登出ToolStripMenuItem.Name = "登出ToolStripMenuItem";
+            this.登出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.登出ToolStripMenuItem.Text = "登出";
+            this.登出ToolStripMenuItem.Click += new System.EventHandler(this.登出ToolStripMenuItem_Click);
+            // 
+            // 重新整理ToolStripMenuItem
+            // 
+            this.重新整理ToolStripMenuItem.Name = "重新整理ToolStripMenuItem";
+            this.重新整理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.重新整理ToolStripMenuItem.Text = "重新整理";
+            // 
+            // 結束ToolStripMenuItem
+            // 
+            this.結束ToolStripMenuItem.Name = "結束ToolStripMenuItem";
+            this.結束ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.結束ToolStripMenuItem.Text = "結束";
             // 
             // MainForm
             // 
@@ -128,6 +164,8 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.userBox.ResumeLayout(false);
             this.userBox.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,5 +180,9 @@
         private System.Windows.Forms.Label nameLabel;
         private System.Windows.Forms.Label permissionLabel;
         private System.Windows.Forms.Label departmentLabel;
+        private System.Windows.Forms.ToolStripMenuItem 檔案ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 登出ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 重新整理ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 結束ToolStripMenuItem;
     }
 }

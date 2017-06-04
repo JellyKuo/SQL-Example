@@ -30,6 +30,14 @@ namespace 夢想之都管理程式
             nameLabel.Text = UserData[0];
             departmentLabel.Text = UserData[1];
             permissionLabel.Text = UserData[2];
-        } 
+        }
+
+        private void 登出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SQL.Logout();
+            this.Dispose();
+            FormProvider.LoginForm.Show();
+        }
     }
 }

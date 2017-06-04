@@ -21,7 +21,7 @@ namespace 夢想之都管理程式
 
         public SQL()  //初始化
         {
-            if (conn == null)
+            if (conn == null||SQL.GetConnectionState() == "Closed")
                 throw new Exception("SqlConnection未就緒!");
             var cmd = new SqlCommand("SELECT CURRENT_USER", conn);
             var Reader = cmd.ExecuteReader();

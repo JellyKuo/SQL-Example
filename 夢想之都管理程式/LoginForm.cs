@@ -28,7 +28,6 @@ namespace 夢想之都管理程式
         [Conditional("DEBUG")]
         private void Debug()
         {
-            SQL.Connect("TestClient", "P@ssw0rd");
             loginButton.Size = new Size(140, 30);
             Button DebugButton = new Button()
             {
@@ -40,6 +39,7 @@ namespace 夢想之都管理程式
             };
             DebugButton.Click += (sender, e) =>
             {
+                SQL.Connect("TestClient", "P@ssw0rd");
                 FormProvider.MainForm.Show();
                 this.Hide();
             };

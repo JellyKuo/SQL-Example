@@ -16,7 +16,7 @@ namespace 夢想之都管理程式
         {
             get
             {
-                if (_LoginForm == null)
+                if (_LoginForm == null||_LoginForm.IsDisposed)
                 {
                     _LoginForm = new LoginForm();
                     _LoginForm.FormClosing += FormProvider.ExitApp;
@@ -31,7 +31,7 @@ namespace 夢想之都管理程式
         {
             get
             {
-                if (_MainForm == null)
+                if (_MainForm == null || _MainForm.IsDisposed)
                 {
                     _MainForm = new MainForm();
                     _MainForm.FormClosing += FormProvider.ExitApp;
