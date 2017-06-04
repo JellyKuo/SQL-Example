@@ -25,7 +25,7 @@ namespace 夢想之都管理程式
 #endif
         }
 
-        [Conditional("DEBUG")]
+        [Conditional("DEBUG")]//不被Release編譯
         private void Debug()
         {
             loginButton.Size = new Size(140, 30);
@@ -46,6 +46,8 @@ namespace 夢想之都管理程式
             this.Controls.Add(DebugButton);
         }  //Debug方便登入用
 
+        #region 測試網路連線
+        /*
         private void 測試網路連線ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -63,11 +65,8 @@ namespace 夢想之都管理程式
                 MessageBox.Show("網路連線有點問題喔", "測試網路連線", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-
-        }
+        */
+        #endregion
 
         private void loginButton_Click(object sender, EventArgs e)
         {
@@ -75,7 +74,6 @@ namespace 夢想之都管理程式
             try
             {
                 SQL.Connect(userBox.Text, passBox.Text);
-
                 for (int i = 0; i < 3; i++)  //檢查連線狀態3次
                 {
                     if (SQL.GetConnectionState() == "Open")
@@ -104,6 +102,12 @@ namespace 夢想之都管理程式
             userBox.Enabled = State;
             passBox.Enabled = State;
             loginButton.Enabled = State;
+        }  //啟用&關閉控制項
+
+        private void passBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                loginButton_Click(null, null);
         }
     }
 }

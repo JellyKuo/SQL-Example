@@ -37,7 +37,7 @@
             // 
             // userBox
             // 
-            this.userBox.Location = new System.Drawing.Point(71, 15);
+            this.userBox.Location = new System.Drawing.Point(71, 16);
             this.userBox.Margin = new System.Windows.Forms.Padding(5);
             this.userBox.Name = "userBox";
             this.userBox.Size = new System.Drawing.Size(234, 29);
@@ -46,7 +46,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 18);
+            this.label1.Location = new System.Drawing.Point(16, 19);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 20);
@@ -55,17 +55,18 @@
             // 
             // passBox
             // 
-            this.passBox.Location = new System.Drawing.Point(71, 54);
+            this.passBox.Location = new System.Drawing.Point(71, 55);
             this.passBox.Margin = new System.Windows.Forms.Padding(5);
             this.passBox.Name = "passBox";
             this.passBox.PasswordChar = '*';
             this.passBox.Size = new System.Drawing.Size(234, 29);
-            this.passBox.TabIndex = 0;
+            this.passBox.TabIndex = 1;
+            this.passBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.passBox_KeyUp);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 57);
+            this.label2.Location = new System.Drawing.Point(16, 58);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 20);
@@ -74,10 +75,10 @@
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(20, 91);
+            this.loginButton.Location = new System.Drawing.Point(20, 92);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(285, 31);
-            this.loginButton.TabIndex = 3;
+            this.loginButton.TabIndex = 2;
             this.loginButton.Text = "登入";
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
