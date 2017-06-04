@@ -22,12 +22,14 @@ namespace 夢想之都管理程式
         private void MainForm_Load(object sender, EventArgs e)
         {
             GetUserData();
-
         }
 
         private async void GetUserData()
         {
-            nameLabel.Text = await sql.GetUserName();
+            var UserData = await sql.GetUserData();
+            nameLabel.Text = UserData[0];
+            departmentLabel.Text = UserData[1];
+            permissionLabel.Text = UserData[2];
         } 
     }
 }

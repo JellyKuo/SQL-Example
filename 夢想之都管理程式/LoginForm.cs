@@ -44,7 +44,7 @@ namespace 夢想之都管理程式
                 this.Hide();
             };
             this.Controls.Add(DebugButton);
-        }
+        }  //Debug方便登入用
 
         private void 測試網路連線ToolStripMenuItem_Click(object sender, EventArgs e)
         {

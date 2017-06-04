@@ -17,17 +17,21 @@ namespace 夢想之都管理程式
         /// </summary>
 
         protected static SqlConnection conn;  //基於安全原因，禁止除了此Class的方法存取SqlConnection
-        public int UserID { get; set; }
+        private int UserID { get; set; }
 
         public SQL()  //初始化
         {
             if (conn == null)
                 throw new Exception("SqlConnection未就緒!");
             var cmd = new SqlCommand("SELECT CURRENT_USER", conn);
-            var UserReader = cmd.ExecuteReader();
-            cmd.CommandText = "SELECT 使用者ID FROM 使用者資料 WHERE 帳號 = " + UserReader.GetString(1);
-            var IDReader = cmd.ExecuteReader();
-            this.UserID = IDReader.GetInt32(0);
+            var Reader = cmd.ExecuteReader();
+            Reader.Read();
+            cmd.CommandText = "SELECT 使用者ID FROM 使用者資料 WHERE 帳號 = '" + Reader.GetString(0)+"'";
+            Reader.Close();
+            Reader = cmd.ExecuteReader();
+            Reader.Read();
+            this.UserID = Reader.GetInt32(0);
+            Reader.Close();
         }
 
         public static void Connect(string User, string Pass)  //開始連線
@@ -73,7 +77,7 @@ namespace 夢想之都管理程式
                 Console.WriteLine("User is not logged in");
         }
 
-        public Task<int> ExecuteNonQuery(string cmdStr)  //執行不回傳的SQL Query
+        private Task<int> ExecuteNonQuery(string cmdStr)  //執行不回傳的SQL Query
         {
             if (conn == null)
                 throw new Exception("SQL連線未建立!");
@@ -83,7 +87,7 @@ namespace 夢想之都管理程式
             return cmd.ExecuteNonQueryAsync();
         }
 
-        public async Task<SqlDataReader> ExecuteReadQuery(string cmdStr)
+        private async Task<SqlDataReader> ExecuteReadQuery(string cmdStr)
         {
             if (conn == null)
                 throw new Exception("SQL連線未建立!");
@@ -95,12 +99,33 @@ namespace 夢想之都管理程式
             return reader;
         }  //執行傳回的SQL Query
 
-        public async Task<string> GetUserName()
+        public async Task<List<string>> GetUserData()
         {
-            SqlCommand cmd = new SqlCommand("SELECT 名稱 FROM 使用者資料 WHERE 使用者ID = " + UserID.ToString(), conn);
-            var reader = await cmd.ExecuteReaderAsync();
-            await reader.ReadAsync();
-            return reader.GetString(0);
+            var Reader = await ExecuteReadQuery("SELECT * FROM 使用者資料 WHERE 使用者ID = " + UserID.ToString());
+            var Data = new List<string>();
+            Data.Add(Reader.GetString(2));
+            var DepartmentID = Reader.GetInt32(3);
+            var PermissionID = Reader.GetInt32(4);
+            Reader.Close();
+            Data.Add(await GetDepartmentName(DepartmentID));
+            Data.Add(await GetPermissionName(PermissionID));
+            return Data;
+        }
+
+        private async Task<string> GetDepartmentName(int id)
+        {
+            var Reader = await ExecuteReadQuery("SELECT 部門名稱 FROM 部門表 WHERE 部門ID = " + id.ToString());
+            string DepartmentName = Reader.GetString(0);
+            Reader.Close();
+            return DepartmentName;
+        }
+
+        private async Task<string> GetPermissionName(int id)
+        {
+            var Reader = await ExecuteReadQuery("SELECT 權限名稱 FROM 權限表 WHERE 權限ID = " + id.ToString());
+            string PermissionName = Reader.GetString(0);
+            Reader.Close();
+            return PermissionName;
         }
     }
 }
