@@ -58,12 +58,7 @@ namespace 夢想之都管理程式
 
         private async void GetUrlData()
         {
-            var UrlData = await sql.GetUrlData();
-        }
-
-        private void RenderUrlData()
-        {
-
+            await sql.GetUrlData();
         }
     }
 }

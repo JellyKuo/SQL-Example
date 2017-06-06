@@ -126,6 +126,7 @@ namespace 夢想之都管理程式
         private async Task<string> GetDepartmentName(int id)
         {
             var Reader = await ExecuteReadQuery("SELECT 部門名稱 FROM 部門表 WHERE 部門ID = " + id.ToString());
+            Reader.Read();
             string DepartmentName = Reader.GetString(0);
             Reader.Close();
             return DepartmentName;
@@ -144,20 +145,23 @@ namespace 夢想之都管理程式
         {
             var Reader = await ExecuteReadQuery("SELECT * FROM 連結表");
             var Data = new List<List<string>>();
-            int index = 0;
-            while (Reader.Read())
+            int Index = 0;
+            if (Reader.HasRows)
             {
-                if (!Reader.GetBoolean(3))
+                while (Reader.Read())
                 {
-                    var row = new List<string>();
-                    row.Add(Reader.GetString(1));
-                    row.Add(Reader.GetString(2));
-                    Data.Add(row);
-                    index += 1;
+                    var Row = new List<string>();
+                    Row.Add(Reader.GetString(1));
+                    Row.Add(Reader.GetString(2));
+
+                    Console.WriteLine("{0}\t{1}", Row[0],
+                        Row[1]);
                 }
-
             }
-
+            else
+            {
+                Console.WriteLine("SQL未回傳");
+            }
             Reader.Close();
             return Data;
         }
