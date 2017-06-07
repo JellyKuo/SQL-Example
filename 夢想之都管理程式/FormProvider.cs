@@ -24,7 +24,6 @@ namespace 夢想之都管理程式
                 return _LoginForm;
             }
         }
-
         private static LoginForm _LoginForm;
 
         public static MainForm MainForm
@@ -43,7 +42,12 @@ namespace 夢想之都管理程式
 
         public static void ExitApp(object sender, System.Windows.Forms.FormClosingEventArgs e)  //關閉應用程式
         {
-            Console.WriteLine(((Form)sender).Name+"呼叫關閉! 嘗試登出SQL");
+            if(sender.GetType() == typeof(Form))
+                Console.WriteLine(((Form)sender).Name+"呼叫關閉! 嘗試登出SQL");
+            else if(sender.GetType() == typeof(string))
+                Console.WriteLine((string)sender + "呼叫關閉! 嘗試登出SQL");
+            else
+                Console.WriteLine("呼叫關閉! 嘗試登出SQL");
             SQL.Logout();
             Application.Exit();
         }

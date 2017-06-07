@@ -18,7 +18,7 @@ namespace 夢想之都管理程式
         {
             InitializeComponent();
 #if DEBUG
-            Console.WriteLine("Debug組態");
+            Console.WriteLine("Debug組態, LoginForm載入Debug快速登入");
             Debug();
 #else
             Console.WriteLine("Release組態");

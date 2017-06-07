@@ -29,18 +29,20 @@
         private void InitializeComponent()
         {
             this.userBox = new System.Windows.Forms.GroupBox();
+            this.permissionLabel = new System.Windows.Forms.Label();
+            this.departmentLabel = new System.Windows.Forms.Label();
             this.nameLabel = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.urlBox = new System.Windows.Forms.GroupBox();
-            this.messageBox = new System.Windows.Forms.GroupBox();
-            this.departmentLabel = new System.Windows.Forms.Label();
-            this.permissionLabel = new System.Windows.Forms.Label();
             this.檔案ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.登出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.重新整理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.結束ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.urlBox = new System.Windows.Forms.GroupBox();
+            this.messageBox = new System.Windows.Forms.GroupBox();
+            this.urlBoxPanel = new System.Windows.Forms.Panel();
             this.userBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.urlBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // userBox
@@ -56,6 +58,26 @@
             this.userBox.TabIndex = 1;
             this.userBox.TabStop = false;
             this.userBox.Text = "用戶資料";
+            // 
+            // permissionLabel
+            // 
+            this.permissionLabel.AutoSize = true;
+            this.permissionLabel.Location = new System.Drawing.Point(10, 94);
+            this.permissionLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.permissionLabel.Name = "permissionLabel";
+            this.permissionLabel.Size = new System.Drawing.Size(131, 20);
+            this.permissionLabel.TabIndex = 3;
+            this.permissionLabel.Text = "permissionLabel";
+            // 
+            // departmentLabel
+            // 
+            this.departmentLabel.AutoSize = true;
+            this.departmentLabel.Location = new System.Drawing.Point(10, 61);
+            this.departmentLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.departmentLabel.Name = "departmentLabel";
+            this.departmentLabel.Size = new System.Drawing.Size(139, 20);
+            this.departmentLabel.TabIndex = 3;
+            this.departmentLabel.Text = "departmentLabel";
             // 
             // nameLabel
             // 
@@ -77,46 +99,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(590, 25);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // urlBox
-            // 
-            this.urlBox.Location = new System.Drawing.Point(14, 167);
-            this.urlBox.Margin = new System.Windows.Forms.Padding(5);
-            this.urlBox.Name = "urlBox";
-            this.urlBox.Padding = new System.Windows.Forms.Padding(5);
-            this.urlBox.Size = new System.Drawing.Size(301, 203);
-            this.urlBox.TabIndex = 1;
-            this.urlBox.TabStop = false;
-            this.urlBox.Text = "URL";
-            // 
-            // messageBox
-            // 
-            this.messageBox.Location = new System.Drawing.Point(329, 29);
-            this.messageBox.Name = "messageBox";
-            this.messageBox.Size = new System.Drawing.Size(249, 341);
-            this.messageBox.TabIndex = 3;
-            this.messageBox.TabStop = false;
-            this.messageBox.Text = "留言板";
-            // 
-            // departmentLabel
-            // 
-            this.departmentLabel.AutoSize = true;
-            this.departmentLabel.Location = new System.Drawing.Point(10, 61);
-            this.departmentLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.departmentLabel.Name = "departmentLabel";
-            this.departmentLabel.Size = new System.Drawing.Size(139, 20);
-            this.departmentLabel.TabIndex = 3;
-            this.departmentLabel.Text = "departmentLabel";
-            // 
-            // permissionLabel
-            // 
-            this.permissionLabel.AutoSize = true;
-            this.permissionLabel.Location = new System.Drawing.Point(10, 94);
-            this.permissionLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.permissionLabel.Name = "permissionLabel";
-            this.permissionLabel.Size = new System.Drawing.Size(131, 20);
-            this.permissionLabel.TabIndex = 3;
-            this.permissionLabel.Text = "permissionLabel";
             // 
             // 檔案ToolStripMenuItem
             // 
@@ -140,6 +122,7 @@
             this.重新整理ToolStripMenuItem.Name = "重新整理ToolStripMenuItem";
             this.重新整理ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.重新整理ToolStripMenuItem.Text = "重新整理";
+            this.重新整理ToolStripMenuItem.Click += new System.EventHandler(this.重新整理ToolStripMenuItem_Click);
             // 
             // 結束ToolStripMenuItem
             // 
@@ -148,13 +131,42 @@
             this.結束ToolStripMenuItem.Text = "結束";
             this.結束ToolStripMenuItem.Click += new System.EventHandler(this.結束ToolStripMenuItem_Click);
             // 
+            // urlBox
+            // 
+            this.urlBox.Controls.Add(this.urlBoxPanel);
+            this.urlBox.Location = new System.Drawing.Point(14, 167);
+            this.urlBox.Margin = new System.Windows.Forms.Padding(5);
+            this.urlBox.Name = "urlBox";
+            this.urlBox.Padding = new System.Windows.Forms.Padding(5);
+            this.urlBox.Size = new System.Drawing.Size(300, 200);
+            this.urlBox.TabIndex = 1;
+            this.urlBox.TabStop = false;
+            this.urlBox.Text = "URL";
+            // 
+            // messageBox
+            // 
+            this.messageBox.Location = new System.Drawing.Point(329, 29);
+            this.messageBox.Name = "messageBox";
+            this.messageBox.Size = new System.Drawing.Size(249, 341);
+            this.messageBox.TabIndex = 3;
+            this.messageBox.TabStop = false;
+            this.messageBox.Text = "留言板";
+            // 
+            // urlBoxPanel
+            // 
+            this.urlBoxPanel.AutoScroll = true;
+            this.urlBoxPanel.Location = new System.Drawing.Point(1, 25);
+            this.urlBoxPanel.Name = "urlBoxPanel";
+            this.urlBoxPanel.Size = new System.Drawing.Size(298, 173);
+            this.urlBoxPanel.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(590, 384);
-            this.Controls.Add(this.messageBox);
             this.Controls.Add(this.urlBox);
+            this.Controls.Add(this.messageBox);
             this.Controls.Add(this.userBox);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("微軟正黑體", 12F);
@@ -167,6 +179,7 @@
             this.userBox.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.urlBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,5 +198,6 @@
         private System.Windows.Forms.ToolStripMenuItem 登出ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 重新整理ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 結束ToolStripMenuItem;
+        private System.Windows.Forms.Panel urlBoxPanel;
     }
 }

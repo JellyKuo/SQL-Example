@@ -145,7 +145,6 @@ namespace 夢想之都管理程式
         {
             var Reader = await ExecuteReadQuery("SELECT * FROM 連結表");
             var Data = new List<List<string>>();
-            int Index = 0;
             if (Reader.HasRows)
             {
                 while (Reader.Read())
@@ -153,9 +152,8 @@ namespace 夢想之都管理程式
                     var Row = new List<string>();
                     Row.Add(Reader.GetString(1));
                     Row.Add(Reader.GetString(2));
-
-                    Console.WriteLine("{0}\t{1}", Row[0],
-                        Row[1]);
+                    Data.Add(Row);
+                    Console.WriteLine("{0}\t{1}", Row[0],Row[1]);
                 }
             }
             else
