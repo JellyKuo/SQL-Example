@@ -80,38 +80,14 @@ namespace 夢想之都管理程式
                 Text = "GetUrlData()"
             };
             GetUrlDataToolStripItem.Click += (sender, e) => GetUrlData(); ;
-            ToolStripMenuItem Test = new ToolStripMenuItem()
+            ToolStripMenuItem GetMessageDataToolStripItem = new ToolStripMenuItem()
             {
-                Name = "Test",
-                Text = "Test()"
+                Name = "GetMessageDataToolStripItem",
+                Text = "GetMessageData()"
             };
-            Test.Click += (sender, e) =>
-            {
-                UrlPanel = new Panel[3];
-                UrlNameLabel = new Label[3];
-                UrlButton = new Button[3];
-                int pY = 30;
-                for (int i = 0; i < 3; i++)
-                {
-                    UrlPanel[i] = new Panel()
-                    {
-                        Name = "UrlPanel" + i.ToString(),
-                        Size = new Size(285, 50),
-                        Location = new Point(8, pY),
-                        BackColor = Color.LightBlue
-                    };
-                    UrlNameLabel[i] = new Label()
-                    {
-                        Name = "UrlNameLabel" + i.ToString(),
-                        Text = i.ToString()
-                    };
-                    UrlPanel[i].Controls.Add(UrlNameLabel[i]);
-                    urlBox.Controls.Add(UrlPanel[i]);
-                }
-            };
+            GetMessageDataToolStripItem.Click += (sender, e) => GetMessageData(); ;
 
-
-            DebugToolStripItem.DropDownItems.Add(Test);
+            DebugToolStripItem.DropDownItems.Add(GetMessageDataToolStripItem);
             DebugToolStripItem.DropDownItems.Add(RefreshDataToolStripItem);
             DebugToolStripItem.DropDownItems.Add(GetUserDataToolStripItem);
             DebugToolStripItem.DropDownItems.Add(GetUrlDataToolStripItem);
@@ -135,7 +111,7 @@ namespace 夢想之都管理程式
 
         private async void GetUserData()
         {
-            var UserData = await sql.GetUserData();
+            var UserData = await sql.GetUserData(0);
             nameLabel.Text = UserData[0];
             departmentLabel.Text = UserData[1];
             permissionLabel.Text = UserData[2];
@@ -186,8 +162,11 @@ namespace 夢想之都管理程式
                 UrlPanel[i].Controls.Add(UrlButton[i]);
                 urlBoxPanel.Controls.Add(UrlPanel[i]);
             }
+        }
 
-
+        private async void GetMessageData()
+        {
+            var MessageData = await sql.GetMessage();
         }
     }
 }

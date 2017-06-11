@@ -17,7 +17,7 @@ namespace 夢想之都管理程式
         /// </summary>
 
         protected static SqlConnection conn;  //基於安全原因，禁止除了此Class的方法存取SqlConnection
-        private int UserID { get; set; }
+        private int UserID { get; set; }  //定義使用者的ID
 
         public SQL()  //初始化
         {
@@ -26,7 +26,7 @@ namespace 夢想之都管理程式
             var cmd = new SqlCommand("SELECT CURRENT_USER", conn);
             var Reader = cmd.ExecuteReader();
             Reader.Read();
-            cmd.CommandText = "SELECT 使用者ID FROM 使用者資料 WHERE 帳號 = '" + Reader.GetString(0) + "'";
+            cmd.CommandText = "SELECT 使用者ID FROM 使用者資料 WHERE 帳號 = '" + Reader.GetString(0) + "'";  //取得使用者ID
             Reader.Close();
             Reader = cmd.ExecuteReader();
             Reader.Read();
@@ -109,8 +109,10 @@ namespace 夢想之都管理程式
             return reader;
         }  //執行傳回的SQL Query
 
-        public async Task<List<string>> GetUserData()
+        public async Task<List<string>> GetUserData(int UserID)
         {
+            if (UserID == 0)
+                UserID = this.UserID;
             var Reader = await ExecuteReadQuery("SELECT * FROM 使用者資料 WHERE 使用者ID = " + UserID.ToString());
             var Data = new List<string>();
             await Reader.ReadAsync();
@@ -143,17 +145,42 @@ namespace 夢想之都管理程式
 
         public async Task<List<List<string>>> GetUrlData()
         {
-            var Reader = await ExecuteReadQuery("SELECT * FROM 連結表");
+            var Reader = await ExecuteReadQuery("SELECT 連結名稱,網址 FROM 連結表 WHERE 已刪除 = 0");
             var Data = new List<List<string>>();
             if (Reader.HasRows)
             {
                 while (Reader.Read())
                 {
                     var Row = new List<string>();
+                    Row.Add(Reader.GetString(0));
                     Row.Add(Reader.GetString(1));
-                    Row.Add(Reader.GetString(2));
                     Data.Add(Row);
-                    Console.WriteLine("{0}\t{1}", Row[0],Row[1]);
+                    Console.WriteLine("{0}\t{1}", Row[0], Row[1]);
+                }
+            }
+            else
+            {
+                Console.WriteLine("SQL未回傳");
+            }
+            Reader.Close();
+            return Data;
+        }
+
+        public async Task<List<List<string>>> GetMessage()
+        {
+            var Reader = await ExecuteReadQuery("SELECT 使用者ID,內容,時間 FROM 布告欄 WHERE 已刪除 = 0");
+            var Data = new List<List<string>>();
+            if (Reader.HasRows)
+            {
+                while (Reader.Read())
+                {
+                    var UserData = await GetUserData(Reader.GetInt32(0));
+                    var Row = new List<string>();
+                    Row.Add(UserData[0]);
+                    Row.Add(Reader.GetString(1));
+                    Row.Add(Convert.ToDateTime(Reader[2]).ToString("dd/MM/yyyy HH:mm:ss"));
+                    Data.Add(Row);
+                    Console.WriteLine("{0}\t{1}\t{2}", Row[0], Row[1], Row[2]);
                 }
             }
             else
