@@ -16,8 +16,12 @@ namespace 夢想之都管理程式
         /// 這裡控制與SQL伺服器的連線與操作
         /// </summary>
 
+        #region Declaration
+
         protected static SqlConnection conn;  //基於安全原因，禁止除了此Class的方法存取SqlConnection
         private int UserID { get; set; }  //定義使用者的ID
+
+        #endregion
 
         public SQL()  //初始化
         {
@@ -34,48 +38,54 @@ namespace 夢想之都管理程式
             Reader.Close();
         }
 
-        public static void Connect(string User, string Pass)  //開始連線
-        {
-            string ConnStr;  //儲存連線參數
-            string Server = "tcp:dreamcity.database.windows.net,1433";  //Server位置
-            string Catalog = "夢想之都";  //DB Schema
+        #region Connection
 
-            ConnStr = String.Format("Server={0};" +
-                "Initial Catalog={1};" +  //初始Schema
-                "Persist Security Info=False;" +  //不保存安全資訊
-                "User ID={2};" +  //使用者ID
-                "Password={3};" +  //使用者密碼
-                "MultipleActiveResultSets=True;" +
-                "Encrypt=True;" +
-                "TrustServerCertificate=False;" +
-                "Connection Timeout=30;"  //連線逾時
-                , Server, Catalog, User, Pass);  //製作連線參數
+                public static void Connect(string User, string Pass)  //開始連線
+                {
+                    string ConnStr;  //儲存連線參數
+                    string Server = "tcp:dreamcity.database.windows.net,1433";  //Server位置
+                    string Catalog = "夢想之都";  //DB Schema
 
-            conn = new SqlConnection();
-            conn.ConnectionString = ConnStr;
-            conn.Open();  //開啟連線
-            ConnStr = null;  //從記憶體釋放連線參數
-        }
+                    ConnStr = String.Format("Server={0};" +
+                        "Initial Catalog={1};" +  //初始Schema
+                        "Persist Security Info=False;" +  //不保存安全資訊
+                        "User ID={2};" +  //使用者ID
+                        "Password={3};" +  //使用者密碼
+                        "MultipleActiveResultSets=True;" +
+                        "Encrypt=True;" +
+                        "TrustServerCertificate=False;" +
+                        "Connection Timeout=30;"  //連線逾時
+                        , Server, Catalog, User, Pass);  //製作連線參數
 
-        public static string GetConnectionState()  //取得連線狀態
-        {
-            if (conn != null)
-                return conn.State.ToString();
-            else
-                return null;
-        }
+                    conn = new SqlConnection();
+                    conn.ConnectionString = ConnStr;
+                    conn.Open();  //開啟連線
+                    ConnStr = null;  //從記憶體釋放連線參數
+                }
 
-        public static void Logout()  //登出
-        {
-            if (conn != null)
-            {
-                Console.WriteLine("Logging out");
-                conn.Close();  //關閉連線
-                conn.Dispose();  //釋放資源
-            }
-            else
-                Console.WriteLine("User is not logged in");
-        }
+                public static string GetConnectionState()  //取得連線狀態
+                {
+                    if (conn != null)
+                        return conn.State.ToString();
+                    else
+                        return null;
+                }
+
+                public static void Logout()  //登出
+                {
+                    if (conn != null)
+                    {
+                        Console.WriteLine("Logging out");
+                        conn.Close();  //關閉連線
+                        conn.Dispose();  //釋放資源
+                    }
+                    else
+                        Console.WriteLine("User is not logged in");
+                }
+
+        #endregion
+
+        #region Execute
 
         private Task<int> ExecuteNonQuery(string cmdStr)  //執行不回傳的SQL Query
         {
@@ -109,14 +119,16 @@ namespace 夢想之都管理程式
             return reader;
         }  //執行傳回的SQL Query
 
+        #endregion
+
         public async Task<List<string>> GetUserData(int UserID)
         {
             if (UserID == 0)
                 UserID = this.UserID;
             var Reader = await ExecuteReadQuery("SELECT * FROM 使用者資料 WHERE 使用者ID = " + UserID.ToString());
             var Data = new List<string>();
+            Data.Add(await GetUserName(UserID));
             await Reader.ReadAsync();
-            Data.Add(Reader.GetString(2));
             var DepartmentID = Reader.GetInt32(3);
             var PermissionID = Reader.GetInt32(4);
             Reader.Close();
@@ -125,10 +137,19 @@ namespace 夢想之都管理程式
             return Data;
         }
 
+        private async Task<string> GetUserName(int id)
+        {
+            var Reader = await ExecuteReadQuery("SELECT 名稱 FROM 使用者資料 WHERE 部門ID = " + id.ToString());
+            await Reader.ReadAsync();
+            string UserName = Reader.GetString(0);
+            Reader.Close();
+            return UserName;
+        }
+
         private async Task<string> GetDepartmentName(int id)
         {
             var Reader = await ExecuteReadQuery("SELECT 部門名稱 FROM 部門表 WHERE 部門ID = " + id.ToString());
-            Reader.Read();
+            await Reader.ReadAsync();
             string DepartmentName = Reader.GetString(0);
             Reader.Close();
             return DepartmentName;
@@ -149,7 +170,7 @@ namespace 夢想之都管理程式
             var Data = new List<List<string>>();
             if (Reader.HasRows)
             {
-                while (Reader.Read())
+                while (await Reader.ReadAsync())
                 {
                     var Row = new List<string>();
                     Row.Add(Reader.GetString(0));
@@ -172,11 +193,10 @@ namespace 夢想之都管理程式
             var Data = new List<List<string>>();
             if (Reader.HasRows)
             {
-                while (Reader.Read())
+                while (await Reader.ReadAsync())
                 {
-                    var UserData = await GetUserData(Reader.GetInt32(0));
                     var Row = new List<string>();
-                    Row.Add(UserData[0]);
+                    Row.Add(await GetUserName(Reader.GetInt32(0)));
                     Row.Add(Reader.GetString(1));
                     Row.Add(Convert.ToDateTime(Reader[2]).ToString("dd/MM/yyyy HH:mm:ss"));
                     Data.Add(Row);
